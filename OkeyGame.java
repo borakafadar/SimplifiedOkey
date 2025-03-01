@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class OkeyGame {
 
     Player[] players;
@@ -45,20 +47,23 @@ public class OkeyGame {
         return null;
     }
 
-    /*
-     * TODO: get the top tile from tiles array for the current player
-     * that tile is no longer in the tiles array (this simulates picking up the top tile)
-     * it should return the toString method of the tile so that we can print what we picked
-     */
+    
     public String getTopTile() {
-        return null;
+        Tile tempTile=tiles[tiles.length-1];
+        players[currentPlayerIndex].playerTiles[players[currentPlayerIndex].playerTiles.length]=tempTile;
+        tiles[tiles.length-1]=null;
+        return tempTile.toString();
     }
 
-    /*
-     * TODO: should randomly shuffle the tiles array before game starts
-     */
+    
     public void shuffleTiles() {
-
+        Random random = new Random();
+        for(int i=tiles.length-1;i>0;i--){
+            int randomIndex = random.nextInt(i+1);
+            Tile tempTile =tiles[i];
+            tiles[i]=tiles[randomIndex];
+            tiles[randomIndex]=tempTile;
+        }
     }
 
     /*
