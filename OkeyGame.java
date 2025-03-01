@@ -69,16 +69,22 @@ public class OkeyGame {
         return false;
     }
 
-    /*
-     * TODO: Pick a tile for the current computer player using one of the following:
-     * - picking from the tiles array using getTopTile()
-     * - picking from the lastDiscardedTile using getLastDiscardedTile()
-     * You should consider if the discarded tile is useful for the computer in
-     * the current status. Print whether computer picks from tiles or discarded ones.
-     */
     public void pickTileForComputer() {
+        Player currentPlayer = players[currentPlayerIndex];
+        int discardedValue = lastDiscardedTile.getValue();
+        int[] counts = new int[6];
 
-    }
+        for(int i = 0; i<currentPlayer.getTiles().length; i++) {
+            counts[currentPlayer.getTiles()[i].getValue()-1]++;
+        }
+        if(counts[discardedValue-1] >= 2 && counts[discardedValue-1] < 4) {
+            getLastDiscardedTile();
+            System.out.println(currentPlayer.getName() + " picked from discarded tile.");
+        } else{
+            getTopTile();
+            System.out.println(currentPlayer.getName() + " picked from tiles.");
+        }
+    }  
 
     /*
      * TODO: Current computer player will discard the least useful tile.
@@ -90,13 +96,10 @@ public class OkeyGame {
 
     }
 
-    /*
-     * TODO: discards the current player's tile at given index
-     * this should set lastDiscardedTile variable and remove that tile from
-     * that player's tiles
-     */
     public void discardTile(int tileIndex) {
-
+        Player currentPlayer = players[currentPlayerIndex];
+        lastDiscardedTile = currentPlayer.getAndRemoveTile(tileIndex);
+        passTurnToNextPlayer();
     }
 
     public void displayDiscardInformation() {
