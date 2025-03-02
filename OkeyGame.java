@@ -28,23 +28,35 @@ public class OkeyGame {
         }
     }
 
-    /*
-     * TODO: distributes the starting tiles to the players
-     * player at index 0 gets 15 tiles and starts first
-     * other players get 14 tiles
-     * this method assumes the tiles are already shuffled
-     */
+    
     public void distributeTilesToPlayers() {
+        int tileIndex = 0;
 
+        for(int i = 0; i < 15; i++) {
+            players[0].addTile(tiles[tileIndex++];
+        }
+
+        for(int i = 1; i < players.length; i++){
+            for(int j = 0; j < 14; j++) {
+                players[i].addTile(tiles[tileIndex++];
+            }
+        }
+
+        
+        Tile[] tilesRemaining = new Tile[tiles.length - tileIndex];
+        System.arraycopy(tiles, tileIndex, tilesRemaning, 0, tilesRemaning.length);
+        tiles = tilesRemaning;
+        
     }
 
-    /*
-     * TODO: get the last discarded tile for the current player
-     * (this simulates picking up the tile discarded by the previous player)
-     * it should return the toString method of the tile so that we can print what we picked
-     */
+    
     public String getLastDiscardedTile() {
-        return null;
+        if(lastDiscardedTile != null){
+            return lastDiscardedTile.toString();
+        }
+        else{
+            return "No last discarded tile.";
+        }
     }
 
     
