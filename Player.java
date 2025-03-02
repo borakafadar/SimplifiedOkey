@@ -38,7 +38,7 @@ public class Player {
      */
     public void addTile(Tile t) {
         
-        for(int i=0;i<numberOfTiles-1;i++){
+        for(int i=0;i<numberOfTiles;i++){
             if(t!=null){
                 if(t.compareTo(playerTiles[i])==-1 || t.compareTo(playerTiles[i])==0){ //t < playerTiles[i]
                     shiftArray(t, i);
