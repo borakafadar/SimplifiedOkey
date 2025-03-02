@@ -52,6 +52,7 @@ public class OkeyGame {
     
     public String getLastDiscardedTile() {
         if(lastDiscardedTile != null){
+            players[currentPlayerIndex].addTile(lastDiscardedTile);
             return lastDiscardedTile.toString();
         }
         else{
@@ -67,7 +68,7 @@ public class OkeyGame {
         
         Tile[] newTlies = new Tile[tiles.length-1];
         Tile tempTile=tiles[tiles.length-1];
-        players[currentPlayerIndex].playerTiles[players[currentPlayerIndex].playerTiles.length-1]=tempTile;
+        players[currentPlayerIndex].addTile(tempTile);
         for(int i=0;i<tiles.length-1;i++){
             newTlies[i]=tiles[i];
         }
@@ -102,7 +103,7 @@ public class OkeyGame {
             }
         }
         
-        if(getTopTile().isEmpty())
+        if(tiles.length==0)
         {
             System.out.println("The game ends with no tiles in the tile stack");
             System.out.println("Here are the remaining players and their tiles: ");
