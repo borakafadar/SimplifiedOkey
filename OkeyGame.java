@@ -62,7 +62,7 @@ public class OkeyGame {
     
     public String getTopTile() {
         Tile tempTile=tiles[tiles.length-1];
-        players[currentPlayerIndex].playerTiles[players[currentPlayerIndex].playerTiles.length]=tempTile;
+        players[currentPlayerIndex].playerTiles[players[currentPlayerIndex].playerTiles.length-1]=tempTile;
         tiles[tiles.length-1]=null;
         return tempTile.toString();
     }
@@ -111,9 +111,9 @@ public class OkeyGame {
     public void pickTileForComputer() {
         Player currentPlayer = players[currentPlayerIndex];
         int discardedValue = lastDiscardedTile.getValue();
-        int[] counts = new int[6];
+        int[] counts = new int[7];
 
-        for(int i = 0; i<currentPlayer.getTiles().length; i++) {
+        for(int i = 0; i<currentPlayer.getTiles().length-1; i++) {
             counts[currentPlayer.getTiles()[i].getValue()-1]++;
         }
         if(counts[discardedValue-1] >= 2 && counts[discardedValue-1] < 4) {
