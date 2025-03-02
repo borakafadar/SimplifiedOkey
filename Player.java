@@ -64,7 +64,7 @@ public class Player {
         for(int i=0;i<numberOfTiles;i++){
             boolean inArray=false;
             for(Tile t : nonDupedTiles){
-                if(t==null || playerTiles[i] ==null){
+                if(t==null || playerTiles[i] == null){
                     break;
                 }
                 if(t.compareTo(playerTiles[i])==0 && t!=null){

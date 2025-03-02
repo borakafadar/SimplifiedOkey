@@ -88,7 +88,7 @@ public class OkeyGame {
     }
 
     /*
-     * TODO: check if game still continues, should return true if current player
+     * check if game still continues, should return true if current player
      * finished the game, use isWinningHand() method of Player to decide
      */
     public boolean didGameFinish() {
@@ -106,11 +106,10 @@ public class OkeyGame {
         if(tiles.length==0)
         {
             System.out.println("The game ends with no tiles in the tile stack");
-            System.out.println("Here are the remaining players and their tiles: ");
+            System.out.println("Here are the players and their tiles: ");
             for(int i = 0; i< players.length; i++)
             {
-                System.out.println(players[i].getName());
-                displayCurrentPlayersTiles();
+                players[i].displayTiles();
             }
             return true;
         }
@@ -119,13 +118,28 @@ public class OkeyGame {
 
     public void pickTileForComputer() {
         Player currentPlayer = players[currentPlayerIndex];
-        int discardedValue = lastDiscardedTile.getValue();
+        int discardedValue=1;
+        if(lastDiscardedTile!=null){
+            discardedValue = lastDiscardedTile.getValue();
+        }
+        
         int[] counts = new int[7];
 
         for(int i = 0; i<currentPlayer.getTiles().length-1; i++) {
             counts[currentPlayer.getTiles()[i].getValue()-1]++;
         }
-        if(counts[discardedValue-1] >= 2 && counts[discardedValue-1] < 4) {
+
+        boolean hasSame=false;
+        for(Tile tl : currentPlayer.playerTiles){
+            if(tl==null){
+                continue;
+            }
+            if(tl.compareTo(lastDiscardedTile)==0){
+                hasSame=true;
+            }
+        }
+
+        if(counts[discardedValue-1] >= 2 && counts[discardedValue-1] < 4 && !hasSame) {
             getLastDiscardedTile();
             System.out.println(currentPlayer.getName() + " picked from discarded tile.");
         } else{
@@ -135,7 +149,7 @@ public class OkeyGame {
     }  
 
     /*
-     * TODO: Current computer player will discard the least useful tile.
+     * Current computer player will discard the least useful tile.
      * this method should print what tile is discarded since it should be
      * known by other players. You may first discard duplicates and then
      * the single tiles and tiles that contribute to the smallest chains.
@@ -168,10 +182,9 @@ public class OkeyGame {
         {
             System.out.println(currentPlayer.getName() + " discarded " +  hand[discardIndex]);
             discardTile(discardIndex);
+            return;
         }
-
-
-
+       
     }
 
     private int[] countTileValues(Tile[] hand)
@@ -190,16 +203,11 @@ public class OkeyGame {
     //Searching each index to find any duplicate tiles in player's hand
     private int findDuplicateTileIndex(Tile[] hand , int[] counts)
     {
-        for(int value = 1; value <= 7; value++)
-        {
-            if(counts[value] > 1)
-            {
-                for(int i = 0; i< hand.length; i++)
-                {
-                    if(hand[i] != null && hand[i].getValue() == value)
-                    {
-                        return i;
-                    }
+        for(int i=0;i<players[currentPlayerIndex].numberOfTiles;i++){
+            Tile tl=players[currentPlayerIndex].playerTiles[i];
+            for(Tile t : players[currentPlayerIndex].playerTiles){
+                if(t!=tl && t.compareTo(tl)==0){
+                    return i;
                 }
             }
         }
@@ -227,7 +235,6 @@ public class OkeyGame {
     public void discardTile(int tileIndex) {
         Player currentPlayer = players[currentPlayerIndex];
         lastDiscardedTile = currentPlayer.getAndRemoveTile(tileIndex);
-        passTurnToNextPlayer();
     }
 
     public void displayDiscardInformation() {
