@@ -29,23 +29,23 @@ public class OkeyGame {
     }
 
     
-    public void distributeTilesToPlayers() {
+  public void distributeTilesToPlayers() {
         int tileIndex = 0;
 
         for(int i = 0; i < 15; i++) {
-            players[0].addTile(tiles[tileIndex++];
+            players[0].addTile(tiles[tileIndex++]);
         }
 
         for(int i = 1; i < players.length; i++){
             for(int j = 0; j < 14; j++) {
-                players[i].addTile(tiles[tileIndex++];
+                players[i].addTile(tiles[tileIndex++]);
             }
         }
 
         
         Tile[] tilesRemaining = new Tile[tiles.length - tileIndex];
-        System.arraycopy(tiles, tileIndex, tilesRemaning, 0, tilesRemaning.length);
-        tiles = tilesRemaning;
+        System.arraycopy(tiles, tileIndex, tilesRemaining, 0, tilesRemaining.length);
+        tiles = tilesRemaining;
         
     }
 
