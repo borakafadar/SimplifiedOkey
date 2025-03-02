@@ -61,10 +61,17 @@ public class OkeyGame {
 
     
     public String getTopTile() {
+        if(tiles.length == 0){
+            return "";
+        }
+        
+        Tile[] newTlies = new Tile[tiles.length-1];
         Tile tempTile=tiles[tiles.length-1];
         players[currentPlayerIndex].playerTiles[players[currentPlayerIndex].playerTiles.length-1]=tempTile;
-        players[currentPlayerIndex].playerTiles[players[currentPlayerIndex].playerTiles.length - 1]=tempTile;
-        tiles[tiles.length-1]=null;
+        for(int i=0;i<tiles.length-1;i++){
+            newTlies[i]=tiles[i];
+        }
+        tiles=newTlies;
         return tempTile.toString();
     }
 
